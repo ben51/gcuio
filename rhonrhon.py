@@ -17,6 +17,7 @@ from twython import Twython
 from twython import TwythonStreamer
 from twython import TwythonError, TwythonRateLimitError, TwythonAuthError
 from daemonize import Daemonize
+import random
 
 import rhonmod.coin
 
@@ -269,6 +270,15 @@ class Bot(irc.bot.SingleServerIRCBot):
         if 'nolog' in tags:
             return
 
+        # handle yolo tag
+        if re.search('[\[#]\ *yolo\ *[#\]]', pl, re.I):
+            msg = '{0}: you got SWAG'
+            self.send_message(serv, channel, msg.format(nick))
+            if self.flip_coin():
+                return
+            pl = re.sub(r"[\[#]\ *yolo\ *[#\]]", "", pl);
+            tags.append('yolo')
+
         urls = re.findall('(https?://[^\s]+)', pl)
         urls_copy = list(urls)
         for url in urls_copy:
@@ -492,6 +502,10 @@ class Bot(irc.bot.SingleServerIRCBot):
             pass
         return (False, [])
 
+    def flip_coin(self):
+        if random.random() > 0.5:
+            return True
+        return False
 
 
 foreground = False

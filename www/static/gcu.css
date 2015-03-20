@@ -32,6 +32,13 @@ body {
 .line {
     margin-left: 5px;
 }
+.yolo {
+    margin-left: 5px;
+    font-weight: bold;
+    color: red;
+    text-decoration: blink;
+    font-family: "Comic Sans MS", cursive, sans-serif;
+}
 .tags {
     margin-left: 5px;
 }

@@ -165,7 +165,15 @@ var process_ircline = function(data, lastdate, cnt, pos) {
         /* destination nicks */
         {{ js.buttonlst('tonick', ircline_style) }}
         /* real line */
-        ircline += '<span class="line">' + decoline(source) + '</span>';
+
+        var line_class = 'line';
+        if (source.tags && source.tags[0] && $.inArray('yolo', source.tags) !== false) {
+            ircline += '<span class="yolo"><marquee behavior="alternate">' + decoline(source) + '</marquee></span>';
+        }
+        else {
+            ircline += '<span class="line">' + decoline(source) + '</span>';
+        }
+
         /* tags */
         {{ js.buttonlst('tags', ircline_style, 'tag') }}
 
